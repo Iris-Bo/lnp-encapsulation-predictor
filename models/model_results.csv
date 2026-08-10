@@ -1,0 +1,5 @@
+Dataset,Model,MAE,R2
+Numerical,Linear Regression,13.361095497578367,0.11914744923145426
+Numerical,Random Forest,10.369649357802686,0.29940602762686164
+Numerical + Ionizable Lipid,Linear Regression,11.250873668594915,0.3163053057122468
+Numerical + Ionizable Lipid,Random Forest,8.821159396282727,0.49263664318768163
