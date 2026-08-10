@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from app.schemas import LNPInput
 from pathlib import Path
 import pandas as pd
 import joblib
@@ -9,7 +9,6 @@ app = FastAPI(
 )
 
 # Load model
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 model = joblib.load(
     BASE_DIR/"models"/"random_forest_baseline.pkl"
@@ -18,14 +17,6 @@ model = joblib.load(
 feature_names = joblib.load(
     BASE_DIR/"models"/"feature_names.pkl"
 )
-
-class LNPInput(BaseModel):
-    particle_size_nm: float
-    ionizable_ratio: float
-    helper_ratio: float
-    sterol_ratio: float
-    peg_ratio: float
-    ionizable_lipid: str
 
 #create prediction endpoint
 @app.post("/predict")
