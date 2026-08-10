@@ -1,6 +1,7 @@
 # LNP Encapsulation Predictor
 
 Machine learning project to predict lipid nanoparticle encapsulation efficiency from formulation characteristics.
+The LNP Atlas dataset is used: "https://lnp-atlas.kisti.re.kr/"
 
 ## Objectives
 
