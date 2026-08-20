@@ -1,6 +1,7 @@
 # LNP Encapsulation Efficiency Predictor
 
 An end-to-end machine learning system to predict lipid nanoparticle (LNP) encapsulation efficiency from formulation parameters, complete with an automated inference API and containerized deployment.
+The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/"). 
 
 ## Tech Stack
 - **Modeling & Data:** Python, Scikit-learn, Pandas, NumPy
