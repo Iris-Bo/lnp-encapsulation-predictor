@@ -36,7 +36,7 @@ An end-to-end machine learning system to predict lipid nanoparticle (LNP) encaps
 
 4. **Stop and remove the container:**
    ```bash
-   docker stop lnp-api && docker rm lnp-api
+   docker stop lnp-api; docker rm lnp-api
    ```
 
 ---
