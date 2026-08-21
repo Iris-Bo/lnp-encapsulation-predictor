@@ -14,7 +14,7 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
 - [x] **Phase 2: Baseline Modeling** — Trained initial Random Forest regressor on formulation parameters.
 - [x] **Phase 3: Inference Service** — Built REST API with FastAPI and Pydantic schema validation.
 - [x] **Phase 4: Containerization** — Dockerized FastAPI service for reproducible inference.
-- [ ] **Phase 5: Automated Testing & CI/CD** — Unit tests (`pytest`) and GitHub Actions build checks.
+- [x] **Phase 5: Automated Testing & CI/CD** — Unit tests (`pytest`) and GitHub Actions build checks.
 - [ ] **Phase 6: Model improvement and comparison** — Addition of features, hyperparameter tuning, XGBoost/LightGBM comparison, and SHAP interpretability.
 
 ## Quickstart
