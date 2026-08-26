@@ -27,5 +27,7 @@ Thumbs.db
 # Raw Data
 data/raw/
 
-#SQlite database
+#SQlite database and mlflow artifacts
 mlflow.db
+mlruns/
+notebooks/mlruns
