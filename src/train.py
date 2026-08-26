@@ -12,6 +12,7 @@ from data import load_and_split_data
 def train_model():
     # 1. Set the MLflow Experiment
     mlflow.set_experiment("LNP_Encapsulation_Prediction")
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
 
     # 2. Start the tracking context
     with mlflow.start_run(run_name="Baseline_RandomForest_Model2.2"):
