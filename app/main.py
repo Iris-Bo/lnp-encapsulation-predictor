@@ -11,6 +11,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #state dict to hold model artifacts
 ml_models = {}
 
+# --- SWAGGER UI DOCUMENTATION ---
+api_description = """
+Predicts Lipid Nanoparticle encapsulation efficiency based on formulation parameters.
+
+**Valid Formulation Inputs:**
+
+* **Ionizable Lipids:** 4A3-SC8, A2-Iso5-2DC18, ALC-0315, AX4, C12-200, Custom lipid, DLin-KC2-DMA, DLin-MC3-DMA, DLinDMA, DODAP, DOTAP, DOTMA, L202, OF-02, SM-102, cKK-E12, OF-Deg-Lin, 244-cis, 246C10, Heptadecan-9-yl 8-((2-hydroxyethyl)(8-(nonyloxy)-8-oxooctyl)amino)octanoate, OF-C4-Deg-Lin, C9-200, C10-200, BP-Lipid-135, DSDMA, DODMA, DLenDMA
+* **Helper Lipids:** DOPC, DOPE, DPPC, DSPC, DSPE, DMPC, DLPE, BMP, SOPC, POPE, 4ME, CL, SOPE, DEPE, DPPE, C16-18:1 PE, POPC, DSPC + TMR-PC
+* **PEG Lipids:** ALC-0159, C14-PEG2000, C16-Ceramide-PEG2000, DMG, DMG-PEG2000, DMG-PEG5k, DMPE-PEG2000, DPPE-PEG2000, DSG-PEG2000, DSPE-PEG2000, PEG-c-DMA, PEG-lipid, C8-Ceramide-PEG2000, DMPE-PEG550, DMPE-PEG1000, DPPE-PEG1000, DSPE-PEG550, DSPE-PEG1000, DSPE-2armPEG2000, DOPE-PEG550, DOPE-PEG1000, DOPE-PEG2000, C8-Ceramide-PEG750, C16-Ceramide-PEG750
+* **Sterol Lipids:** cholesterol, ¥â-sitosterol, fucosterol, campesterol, stigmastanol
+* **Target Types:** ASO, DNA, mRNA, siRNA
+"""
+
 # --- VALIDATION DICTIONARIES ---
 # These map exact user string inputs to their correct processing pathway
 SPECIFIC_IONIZABLE = {"4A3-SC8", "A2-Iso5-2DC18", "ALC-0315", "AX4", "C12-200", "Custom lipid", "DLin-KC2-DMA", "DLin-MC3-DMA", "DLinDMA", "DODAP", "DOTAP", "DOTMA", "L202", "OF-02", "SM-102"}
