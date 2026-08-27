@@ -77,45 +77,72 @@ def predict(data: LNPInput):
     row["peg_ratio"] = data.peg_ratio
 
     # Map one-hot encoded categorical features
+
+    # Pre-process user inputs to lowercase for robust matching
+    ionizable_user = data.ionizable_lipid.lower()
+    helper_user = data.helper_lipid.lower()
+    peg_user = data.peg_lipid.lower()
+    sterol_user = data.sterol_lipid.lower()
+    target_user = data.target_type.lower()
+
+    # Create mapping dictionaries from the specific sets
+    ionizable_map = {k.lower(): k for k in SPECIFIC_IONIZABLE}
+    other_ionizable_map = {k.lower(): k for k in OTHER_IONIZABLE}
     
-    ## Ionizable Lipid
-    if data.ionizable_lipid in SPECIFIC_IONIZABLE:
-        row[f"ionizable_{data.ionizable_lipid}"] = 1.0
-    elif data.ionizable_lipid in OTHER_IONIZABLE:
+    helper_map = {k.lower(): k for k in SPECIFIC_HELPER}
+    other_helper_map = {k.lower(): k for k in OTHER_HELPER}
+    
+    peg_map = {k.lower(): k for k in SPECIFIC_PEG}
+    other_peg_map = {k.lower(): k for k in OTHER_PEG}
+    
+    sterol_map = {k.lower(): k for k in SPECIFIC_STEROL}
+    other_sterol_map = {k.lower(): k for k in OTHER_STEROL}
+    
+    target_map = {k.lower(): k for k in TARGET_TYPES}
+    
+    # Ionizable Lipid 
+    if ionizable_user in ionizable_map:
+        exact_model_name = ionizable_map[ionizable_user]
+        row[f"ionizable_{exact_model_name}"] = 1.0
+    elif ionizable_user in other_ionizable_map:
         row["ionizable_Other"] = 1.0
     else:
-        raise HTTPException(status_code=400, detail=f"Unsupported ionizable lipid: {data.ionizable_lipid}. Check documentation for valid options.")
+        raise HTTPException(status_code=400, detail=f"Unsupported ionizable lipid.")
 
-    ## Helper Lipid
-    if data.helper_lipid in SPECIFIC_HELPER:
-        row[f"helper_{data.helper_lipid}"] = 1.0
-    elif data.helper_lipid in OTHER_HELPER:
+    # Helper Lipid 
+    if helper_user in helper_map:
+        exact_model_name = helper_map[helper_user]
+        row[f"helper_{exact_model_name}"] = 1.0
+    elif helper_user in other_helper_map:
         row["helper_Other"] = 1.0
     else:
-        raise HTTPException(status_code=400, detail=f"Unsupported helper lipid: {data.helper_lipid}. Check documentation for valid options.")
+        raise HTTPException(status_code=400, detail=f"Unsupported helper lipid.")
 
-    ## PEG Lipid
-    if data.peg_lipid in SPECIFIC_PEG:
-        row[f"peg_{data.peg_lipid}"] = 1.0
-    elif data.peg_lipid in OTHER_PEG:
+    # PEG Lipid 
+    if peg_user in peg_map:
+        exact_model_name = peg_map[peg_user]
+        row[f"peg_{exact_model_name}"] = 1.0
+    elif peg_user in other_peg_map:
         row["peg_Other"] = 1.0
     else:
-        raise HTTPException(status_code=400, detail=f"Unsupported PEG lipid: {data.peg_lipid}. Check documentation for valid options.")
+        raise HTTPException(status_code=400, detail=f"Unsupported PEG lipid.")
 
-    ## Sterol Lipid (Note: Non-cholesterol valid sterols safely remain mapped to 0)
-    if data.sterol_lipid in SPECIFIC_STEROL:
-        row[f"sterol_{data.sterol_lipid}"] = 1.0
-    elif data.sterol_lipid not in OTHER_STEROL:
-        raise HTTPException(status_code=400, detail=f"Unsupported sterol lipid: {data.sterol_lipid}. Check documentation for valid options.")
+    # Sterol Lipid 
+    if sterol_user in sterol_map:
+        exact_model_name = sterol_map[sterol_user]
+        row[f"sterol_{exact_model_name}"] = 1.0
+    elif sterol_user not in other_sterol_map:
+        raise HTTPException(status_code=400, detail=f"Unsupported sterol lipid.")
 
-    ## Target Type
-    if data.target_type in TARGET_TYPES:
-        row[f"target_{data.target_type}"] = 1.0
+    # Target Type 
+    if target_user in target_map:
+        exact_model_name = target_map[target_user]
+        row[f"target_{exact_model_name}"] = 1.0
     else:
-        raise HTTPException(status_code=400, detail=f"Unsupported target type: {data.target_type}. Check documentation for valid options.")
+        raise HTTPException(status_code=400, detail=f"Unsupported target type.")
 
     # Predict
-    input_df = pd.DataFrame([row])
+    input_df = pd.DataFrame([row])[feature_names]
     prediction = model.predict(input_df)[0]
 
     return{"predicted_encapsulation_efficiency": round(float(prediction), 2)}
