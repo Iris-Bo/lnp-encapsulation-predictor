@@ -51,7 +51,8 @@ async def lifespan(app:FastAPI):
 
 app = FastAPI(
     title="LNP Encapsulation Efficiency Predictor",
-    lifespan=lifespan
+    lifespan=lifespan,
+    description=api_description,
 )
 
 #Get endpoint to verify if service is running
