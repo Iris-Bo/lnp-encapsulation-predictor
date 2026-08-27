@@ -40,20 +40,27 @@ def predict(data: LNPInput):
     # Create row with zeros
     row = {feature: 0 for feature in feature_names}
 
-    # Numerical features
+    # Map numerical features
     row["particle_size_nm"] = data.particle_size_nm
     row["ionizable_ratio"] = data.ionizable_ratio
     row["helper_ratio"] = data.helper_ratio
     row["sterol_ratio"] = data.sterol_ratio
     row["peg_ratio"] = data.peg_ratio
 
-    # One-hot encoded lipid
-    lipid_column = f"ionizable_{data.ionizable_lipid}"
+    # Map one-hot encoded categorical features
+    categorical_mappings = {
+        f"ionizable_{data.ionizable_lipid}": 1.0,
+        f"helper_{data.helper_lipid}": 1.0,
+        f"sterol_{data.sterol_lipid}": 1.0,
+        f"peg_{data.peg_lipid}": 1.0,
+        f"target_{data.target_type}": 1.0,
+    }
 
-    if lipid_column in row:
-        row[lipid_column] = 1
-    else:
-        row["ionizable_Other"] = 1 #adapt this later on, so no 'unknown' lipids can be entered as input
+    for column_name, value in categorical_mappings.items():
+        if column_name in row:
+            row[column_name] = value
+        #else:
+        #    row["ionizable_Other"] = 1 #adapt this later on, so no 'unknown' lipids can be entered as input + also those lipids that are grouped under Other, shoudl be labelled as Other and not give an error
 
     input_df = pd.DataFrame([row])
 
