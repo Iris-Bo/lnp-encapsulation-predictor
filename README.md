@@ -106,7 +106,11 @@ To reproduce the model training, run hyperparameter tuning, or view the experime
   "helper_ratio": 10.0,
   "sterol_ratio": 38.5,
   "peg_ratio": 1.5,
-  "ionizable_lipid": "MC3"
+  "ionizable_lipid": "DLin-MC3-DMA",
+  "helper_lipid": "DSPC",
+  "sterol_lipid": "Cholesterol",
+  "peg_lipid": "DMG-PEG2000",
+  "target_type": "mRNA"
 }
 ```
 
