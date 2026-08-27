@@ -6,11 +6,11 @@ class LNPInput(BaseModel):
     helper_ratio: float = Field(..., ge=0, le=100, description="Molar ratio percentage")
     sterol_ratio: float = Field(..., ge=0, le=100, description="Molar ratio percentage")
     peg_ratio: float = Field(..., ge=0, le=100, description="Molar ratio percentage")
-    ionizable_lipid: str = Field(..., description="e.g., DLin-MC3-DMA, ALC-0315, SM-102")
-    helper_lipid: str = Field(..., description="e.g., DSPC, DOPE")
-    sterol_lipid: str = Field(..., description="e.g., Cholesterol")
-    peg_lipid: str = Field(..., description="e.g., C14-PEG2000, DMG-PEG2000")
-    target_type: str =  Field(..., description="e.g., mRNA, siRNA")
+    ionizable_lipid: str = Field(..., description="Exact name of ionizable lipid (e.g., DLin-MC3-DMA, cKK-E12)")
+    helper_lipid: str = Field(..., description="Exact name of helper lipid (e.g., DSPC, DOPE)")
+    sterol_lipid: str = Field(..., description="Exact name of sterol lipid (e.g., cholesterol, fucosterol)")
+    peg_lipid: str = Field(..., description="Exact name of PEG lipid (e.g., C14-PEG2000, DOPE-PEG1000, DMG-PEG2000)")
+    target_type: str =  Field(..., description="Must be one of: mRNA, siRNA, ASO, DNA")
 
     model_config = {
         "json_schema_extra": {
