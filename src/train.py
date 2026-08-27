@@ -66,9 +66,11 @@ def train_model():
         mlflow.sklearn.log_model(sk_model=rf_model,name="RF_Tuned", signature=signature, registered_model_name="RF_Tuned")
                 
         # Save the model and feature names artifacts locally for the FastAPI app
-        os.makedirs("../models", exist_ok=True)
-        joblib.dump(rf_model, "../models/random_forest_tuned.pkl")
-        joblib.dump(list(X.columns), "../models/feature_names_tuned.pkl")
+        models_dir = project_root / "models"
+        models_dir.mkdir(parents=True, exist_ok=True)
+       
+        joblib.dump(rf_model, models_dir / "random_forest_tuned.pkl")
+        joblib.dump(list(X.columns), models_dir / "feature_names_tuned.pkl")
         
         print(f"\nRun completed! MAE: {np.mean(mae_scores):.4f}, R2: {np.mean(r2_scores):.4f}")
 
