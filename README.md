@@ -16,7 +16,7 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
 - [x] **Phase 4: Containerization** — Dockerized FastAPI service for reproducible inference.
 - [x] **Phase 5: Automated Testing & CI/CD** — Unit tests (`pytest`) and GitHub Actions build checks.
 - [x] **Phase 6: Experiment Tracking & MLOps** — Integrated MLflow to log hyperparameters, performance metrics, and model artifacts.
-- [ ] **Phase 7: Model improvement and comparison** — Addition of features, hyperparameter tuning, XGBoost/LightGBM comparison, and SHAP interpretability.
+- [ ] **Phase 7: Model improvement and comparison** — Addition of features, hyperparameter tuning, XGBoost comparison, and SHAP interpretability.
 
 ## Quickstart
 
@@ -43,7 +43,7 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
 
 ---
 
-### Option 2: Local Development Setup
+### Option 2: Local Development Setup (API)
 
 1. **Create and activate a virtual environment:**
    ```bash
@@ -72,6 +72,29 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
 
 ---
 
+### Option 3: Model Training and Experiment Tracking (MLflow)
+
+To reproduce the model training, run hyperparameter tuning, or view the experiment metrics, use the local MLflow tracking server alongside Jupyter.
+
+1. **Activate your virtual environment and install development dependencies (See Option 2)**
+
+2. **Start the MLflow UI:**
+   ```bash
+   mlflow ui --backend-store-uri sqlite:///mlflow.db
+   ```
+
+3. **View the Dashboard:**
+
+   Open http://127.0.0.1:5000 in your browser to explore the model registry, metric comparisons, and artifact logs.
+
+4. **Run the Notebooks:**
+
+   Open a new terminal, activate the environment, and start Jupyter to interact with the training code:
+    ```bash
+   jupyter notebook
+   ```
+---
+
 ## Example API Request
 
 **POST** `/predict`
@@ -83,7 +106,11 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
   "helper_ratio": 10.0,
   "sterol_ratio": 38.5,
   "peg_ratio": 1.5,
-  "ionizable_lipid": "MC3"
+  "ionizable_lipid": "DLin-MC3-DMA",
+  "helper_lipid": "DSPC",
+  "sterol_lipid": "Cholesterol",
+  "peg_lipid": "DMG-PEG2000",
+  "target_type": "mRNA"
 }
 ```
 
