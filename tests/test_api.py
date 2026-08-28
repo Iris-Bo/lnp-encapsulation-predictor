@@ -21,7 +21,11 @@ def test_prediction_success():
         "helper_ratio": 10.0,
         "sterol_ratio": 38.5,
         "peg_ratio": 1.5,
-        "ionizable_lipid": "MC3",
+        "ionizable_lipid": "DLin-MC3-DMA",
+        "peg_lipid": "DMG-PEG2000",
+        "sterol_lipid": "Cholesterol",
+        "helper_lipid": "DSPC",
+        "target_type": "mRNA"
     }
     with TestClient(app) as test_client:
         response = test_client.post("/predict", json=payload)
@@ -40,7 +44,11 @@ def test_prediction_invalid_payload():
         "helper_ratio": 10.0,
         "sterol_ratio": 38.5,
         "peg_ratio": 1.5,
-        "ionizable_lipid": "MC3"
+        "ionizable_lipid": "DLin-MC3-DMA",
+        "peg_lipid": "DMG-PEG2000",
+        "sterol_lipid": "Cholesterol",
+        "helper_lipid": "DSPC",
+        "target_type": "mRNA"
     }
     with TestClient(app) as test_client:
         response = test_client.post("/predict", json=invalid_payload)
@@ -53,7 +61,11 @@ def test_prediction_missing_field():
         "helper_ratio": 10.0,
         "sterol_ratio": 38.5,
         "peg_ratio": 1.5,
-        "ionizable_lipid": "MC3"
+        "ionizable_lipid": "DLin-MC3-DMA",
+        "peg_lipid": "DMG-PEG2000",
+        "sterol_lipid": "Cholesterol",
+        "helper_lipid": "DSPC",
+        "target_type": "mRNA"
     }
     with TestClient(app) as test_client:
         response = test_client.post("/predict",json=incomplete_payload)
@@ -61,3 +73,24 @@ def test_prediction_missing_field():
         data = response.json()
         assert "detail" in data
         assert data["detail"][0]["type"] == "missing"
+
+def test_prediction_invalid_lipid():
+    """Verify that an invalid lipid triggers a custom 400 Bad Request error."""
+    invalid_lipid = {
+        "particle_size_nm": 85.5,
+        "ionizable_ratio": 50.0,
+        "helper_ratio": 10.0,
+        "sterol_ratio": 38.5,
+        "peg_ratio": 1.5,
+        "ionizable_lipid": "DLin-MC3-DMAA", #invalid lipid
+        "peg_lipid": "DMG-PEG2000",
+        "sterol_lipid": "Cholesterol",
+        "helper_lipid": "DSPC",
+        "target_type": "mRNA"
+    }
+
+    with TestClient(app) as test_client:
+        response = test_client.post("/predict",json=invalid_lipid)
+        assert response.status_code == 400
+        data = response.json()
+        assert "Unsupported ionizable lipid" in data["detail"]
