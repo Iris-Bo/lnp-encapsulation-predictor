@@ -16,7 +16,7 @@ The LNP Atlas dataset is used ("https://lnp-atlas.kisti.re.kr/").
 - [x] **Phase 4: Containerization** — Dockerized FastAPI service for reproducible inference.
 - [x] **Phase 5: Automated Testing & CI/CD** — Unit tests (`pytest`) and GitHub Actions build checks.
 - [x] **Phase 6: Experiment Tracking & MLOps** — Integrated MLflow to log hyperparameters, performance metrics, and model artifacts.
-- [ ] **Phase 7: Model improvement and comparison** — Addition of features, hyperparameter tuning, XGBoost comparison, and SHAP interpretability.
+- [x] **Phase 7: Model improvement and comparison** — Addition of features, hyperparameter tuning, XGBoost comparison, and SHAP interpretability.
 
 ## Quickstart
 
